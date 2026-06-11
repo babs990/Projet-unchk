@@ -1,0 +1,102 @@
+@use '@angular/material' as mat;
+
+/* ── Theme UCHK — uniquement les composants utilisés ── */
+$uchk-primary: mat.define-palette((
+  50:#f0faf4, 100:#d8f3dc, 200:#b7e4c7, 300:#95d5b2,
+  400:#74c69d, 500:#52b788, 600:#40916c, 700:#2d6a4f,
+  800:#1b4332, 900:#081c15,
+  contrast:(500:white,600:white,700:white,800:white,900:white)
+), 700, 500, 900);
+$uchk-accent: mat.define-palette(mat.$teal-palette, 500, 300, 700);
+$uchk-warn:   mat.define-palette(mat.$red-palette);
+
+$uchk-theme: mat.define-light-theme((
+  color:(primary:$uchk-primary, accent:$uchk-accent, warn:$uchk-warn),
+  typography: mat.define-typography-config($font-family: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"),
+  density: 0,
+));
+
+/* Inclure seulement les composants réellement utilisés (gain ~40% CSS) */
+@include mat.core();
+@include mat.core-theme($uchk-theme);
+@include mat.button-theme($uchk-theme);
+@include mat.icon-button-theme($uchk-theme);
+@include mat.card-theme($uchk-theme);
+@include mat.form-field-theme($uchk-theme);
+@include mat.input-theme($uchk-theme);
+@include mat.select-theme($uchk-theme);
+@include mat.tabs-theme($uchk-theme);
+@include mat.table-theme($uchk-theme);
+@include mat.progress-bar-theme($uchk-theme);
+@include mat.progress-spinner-theme($uchk-theme);
+@include mat.snack-bar-theme($uchk-theme);
+@include mat.menu-theme($uchk-theme);
+@include mat.badge-theme($uchk-theme);
+@include mat.tooltip-theme($uchk-theme);
+@include mat.chips-theme($uchk-theme);
+@include mat.divider-theme($uchk-theme);
+
+/* ── CSS Variables ── */
+:root {
+  --g900:#081c15; --g800:#1b4332; --g700:#2d6a4f;
+  --g600:#40916c; --g500:#52b788; --g400:#74c69d;
+  --g300:#95d5b2; --g100:#d8f3dc; --g50:#f0faf4;
+  --ink:#0a0f0d; --ink2:#2c3e35; --ink3:#5a7567; --ink4:#8fa99b;
+  --surface:#fff; --surface2:#f7faf8; --surface3:#eef5f1;
+  --border:#d4e6db; --border2:#e8f2eb;
+  --red:#e63946; --amber:#f4a261; --blue:#457b9d;
+  --shadow-sm:0 1px 3px rgba(13,40,24,.08);
+  --shadow:0 4px 16px rgba(13,40,24,.10);
+  --shadow-lg:0 12px 40px rgba(13,40,24,.14);
+  --r:14px; --r-sm:8px; --r-lg:20px;
+  --sidebar:260px; --topbar:64px;
+}
+
+/* ── Global ── */
+*,*::before,*::after { box-sizing:border-box; }
+html,body { height:100%; margin:0; font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--surface2); color:var(--ink); }
+::-webkit-scrollbar { width:4px; height:4px; }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
+
+/* Material Icons fallback si pas encore chargé */
+.material-icons, .material-icons-round { font-size:20px; line-height:1; vertical-align:middle; }
+
+/* ── Material overrides légers ── */
+.mat-mdc-card { border-radius:var(--r) !important; box-shadow:none !important; border:1px solid var(--border2) !important; }
+.mdc-tab-indicator { display:none !important; }
+.mat-mdc-tab { border-radius:8px !important; min-width:0 !important; }
+.mat-mdc-tab.mdc-tab--active { background:white; box-shadow:var(--shadow-sm); }
+.mat-mdc-tab-labels { background:var(--surface2); border-radius:10px; padding:4px; gap:3px; }
+.mat-mdc-form-field-subscript-wrapper { display:none; }
+.mdc-notched-outline__leading,.mdc-notched-outline__trailing { border-color:var(--border) !important; }
+.mat-mdc-snack-bar-container { border-radius:10px !important; }
+
+/* ── Layout ── */
+.page-container { max-width:1100px; margin:0 auto; }
+.page-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
+.page-title { font-size:24px; font-weight:800; color:var(--ink); letter-spacing:-.4px; margin:0; }
+.page-subtitle { font-size:13px; color:var(--ink4); margin:4px 0 0; }
+.page-actions { display:flex; gap:10px; align-items:center; }
+
+/* ── KPI Grid ── */
+.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:22px; }
+
+/* ── Badges ── */
+.badge { display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; white-space:nowrap; }
+.badge::before { content:''; width:5px; height:5px; border-radius:50%; background:currentColor; flex-shrink:0; }
+.badge-green  { background:var(--g50);   color:var(--g700); }
+.badge-blue   { background:#eaf3f9;      color:var(--blue); }
+.badge-amber  { background:#fef3e8;      color:#c07430; }
+.badge-red    { background:#fee8ea;      color:var(--red); }
+.badge-gray   { background:var(--surface2); color:var(--ink4); }
+.badge-purple { background:#f2ecfc;      color:#7b52c8; }
+
+/* ── Utils ── */
+.mono { font-family:'JetBrains Mono',ui-monospace,monospace; }
+.text-muted { color:var(--ink4); }
+.text-success { color:var(--g700); }
+.fw-bold { font-weight:700; }
+
+/* ── Responsive ── */
+@media (max-width:900px) { .kpi-grid { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:560px) { .kpi-grid { grid-template-columns:1fr; } }

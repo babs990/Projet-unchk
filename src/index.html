@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>UCHK — Gestion Universitaire</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Fonts avec display=swap pour ne pas bloquer le rendu -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  </noscript>
+  <!-- Material Icons en preload -->
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
+  </noscript>
+  <style>
+    /* Fallback immédiat pendant le chargement des fonts */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    /* Spinner de démarrage affiché AVANT qu'Angular charge */
+    .app-loading {
+      position: fixed; inset: 0; background: #f7faf8;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+      z-index: 9999;
+    }
+    .app-loading-logo {
+      width: 56px; height: 56px; background: #1b4332; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .app-loading-logo svg { width: 32px; height: 32px; stroke: white; fill: none; stroke-width: 1.5; }
+    .app-loading h1 { font-size: 18px; font-weight: 700; color: #1b4332; letter-spacing: -.3px; }
+    .app-loading-bar {
+      width: 200px; height: 3px; background: #d8f3dc; border-radius: 10px; overflow: hidden;
+    }
+    .app-loading-bar-fill {
+      height: 100%; background: #52b788; border-radius: 10px;
+      animation: loadbar 1.4s ease-in-out infinite;
+    }
+    @keyframes loadbar {
+      0%   { width: 0%;   margin-left: 0; }
+      50%  { width: 60%;  margin-left: 20%; }
+      100% { width: 0%;   margin-left: 100%; }
+    }
+  </style>
+</head>
+<body class="mat-typography">
+  <!-- Splash screen visible immédiatement -->
+  <div class="app-loading" id="app-loading">
+    <div class="app-loading-logo">
+      <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+    </div>
+    <h1>UCHK</h1>
+    <div class="app-loading-bar"><div class="app-loading-bar-fill"></div></div>
+  </div>
+  <app-root></app-root>
+  <script>
+    // Retire le splash dès qu'Angular a bootstrappé
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        var el = document.getElementById('app-loading');
+        if (el) { el.style.opacity = '0'; el.style.transition = 'opacity .3s'; setTimeout(function(){ el.remove(); }, 300); }
+      }, 400);
+    });
+  </script>
+</body>
+</html>
